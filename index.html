@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amza-Tech | Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-principal: #000000;
+            --accent: #25D366;
+            --price-color: #ffd700;
+        }
+        body { background-color: var(--bg-principal); color: white; transition: 0.3s; }
+        .admin-panel { display: none; position: fixed; top: 10%; left: 5%; right: 5%; background: #222; border: 2px solid var(--accent); z-index: 1000; padding: 20px; border-radius: 15px; }
+    </style>
+</head>
+<body>
+
+    <header class="p-4 border-b border-gray-800 flex justify-between items-center">
+        <h1 class="text-xl font-bold">AMZA-TECH</h1>
+        <button onclick="openAdmin()" class="text-gray-700 text-xs">Admin</button>
+    </header>
+
+    <section id="hero" class="h-[40vh] bg-cover bg-center flex items-center justify-center" style="background-image: url('votre_affiche.jpg');">
+        <h2 id="siteTitle" class="text-3xl font-black shadow-lg">L'EXCELLENCE APPLE</h2>
+    </section>
+
+    <div class="p-6">
+        <input type="text" id="search" onkeyup="filter()" placeholder="Rechercher..." class="w-full p-3 rounded-lg bg-zinc-900 mb-6">
+        
+        <div id="list" class="space-y-4">
+            <div class="p-4 bg-zinc-900 rounded-lg flex justify-between items-center product">
+                <span class="name">iPhone 16 Pro Max</span>
+                <span class="price text-yellow-500 font-bold">700 000 F</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminBox" class="admin-panel shadow-2xl">
+        <h3 class="text-xl font-bold mb-4">Réglages Amza-Tech</h3>
+        <label class="block mb-2 text-sm text-gray-400">Couleur du Fond</label>
+        <input type="color" id="bgColor" onchange="changeColor()" class="mb-4">
+        
+        <label class="block mb-2 text-sm text-gray-400">Lien de l'Affiche (Nom du fichier)</label>
+        <input type="text" id="heroImg" placeholder="votre_affiche.jpg" class="w-full p-2 bg-black border border-gray-700 mb-4">
+        
+        <button onclick="saveChanges()" class="w-full bg-green-600 p-3 rounded-lg font-bold">Appliquer les changements</button>
+        <button onclick="closeAdmin()" class="w-full mt-2 text-red-500 text-sm">Fermer</button>
+    </div>
+
+    <script>
+        function openAdmin() {
+            let pass = prompt("Entrez votre code secret Amza-Tech :");
+            if (pass === "1234") { // Change "1234" par ton code à toi
+                document.getElementById('adminBox').style.display = 'block';
+            } else {
+                alert("Accès refusé");
+            }
+        }
+
+        function closeAdmin() { document.getElementById('adminBox').style.display = 'none'; }
+
+        function changeColor() {
+            let color = document.getElementById('bgColor').value;
+            document.documentElement.style.setProperty('--bg-principal', color);
+        }
+
+        function saveChanges() {
+            let img = document.getElementById('heroImg').value;
+            if(img) document.getElementById('hero').style.backgroundImage = `url('${img}')`;
+            alert("Changements appliqués localement ! Note : Pour une sauvegarde permanente, modifie le code sur GitHub.");
+            closeAdmin();
+        }
+    </script>
+</body>
+</html>
